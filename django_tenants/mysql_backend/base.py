@@ -44,6 +44,7 @@ class DatabaseWrapper(original_backend.DatabaseWrapper):
     def __init__(self, *args, **kwargs):
         self.tenant = None
         self.schema_name = None
+        self.include_public_schema = True
         self.current_schema = None
         super().__init__(*args, **kwargs)
 
@@ -68,6 +69,7 @@ class DatabaseWrapper(original_backend.DatabaseWrapper):
         """
         self.tenant = tenant
         self.schema_name = tenant.schema_name
+        self.include_public_schema = include_public
         self.set_settings_schema(self.schema_name)
 
         if EXTRA_SET_TENANT_METHOD:
